@@ -1,0 +1,30 @@
+DIM=512
+MODEL=complex
+BATCH=1024
+NEG=32
+MARGIN=20
+DATASET=FB15K237
+B1=1.0
+B2=1.0
+GPU=0
+LR=2e-5
+SEED=2022
+OP=add
+EPOCH=1
+
+SAVE=CAUSE-$MODEL-$DATASET-DIM$DIM-MARGIN$MARGIN-$B1-$B2-$LR-$SEED-$OP-$EPOCH
+
+CUDA_VISIBLE_DEVICES=$GPU nohup python run_cause.py  \
+    -dataset=$DATASET \
+    -score=$MODEL \
+    -dim=$DIM \
+    -neg_num=$NEG \
+    -batch_size=$BATCH \
+    -margin=$MARGIN \
+    -epoch=$EPOCH \
+    -save=$SAVE \
+    -beta1=$B1 \
+    -learning_rate=$LR \
+    -inter_op=$OP \
+    -seed=$SEED \
+    -beta2=$B2 > $SAVE.txt &

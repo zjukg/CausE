@@ -1,0 +1,33 @@
+DIM=256
+MODEL=transe
+BATCH=1024
+NEG=32
+MARGIN=6
+DATASET=WN18RR
+B1=0.2
+B2=1.0
+GPU=0
+DROP=True
+DROPP=0
+K=1
+LR=2e-5
+SEED=2022
+
+SAVE=CAUSE-$MODEL-$DATASET-DIM$DIM+BATCH$BATCH+NEG$NEG-MARGIN$MARGIN-$B1-$B2-DROP$DROP-$DROPP-$K-$LR-$SEED
+
+CUDA_VISIBLE_DEVICES=$GPU nohup python run_cause.py  \
+    -dataset=$DATASET \
+    -score=$MODEL \
+    -dim=$DIM \
+    -neg_num=$NEG \
+    -batch_size=$BATCH \
+    -margin=$MARGIN \
+    -epoch=1000 \
+    -save=$SAVE \
+    -beta1=$B1 \
+    -drop=$DROP \
+    -drop_p=$DROPP \
+    -learning_rate=$LR \
+    -seed=$SEED \
+    -k=$K \
+    -beta2=$B2 > $SAVE.txt &
